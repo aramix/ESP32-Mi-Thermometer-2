@@ -46,7 +46,7 @@ static void thermometerNotifyCallback(NimBLERemoteCharacteristic *pBLERemoteChar
     // Combine the first two bytes into a 16-bit value
     uint16_t tempValue = (pData[1] << 8) | pData[0];
     // Divide temperature by 100
-    float temperature = static_cast<float>(tempValue) / 100.0;
+    float temperature = static_cast<float>(tempValue) * 0.01;
 
     // Extract humidity value
     uint16_t humidityValue = pData[2];
@@ -54,7 +54,7 @@ static void thermometerNotifyCallback(NimBLERemoteCharacteristic *pBLERemoteChar
     // Combine the last two bytes into a 16-bit value
     uint16_t voltageValue = (pData[4] << 8) | pData[3];
     // Divide battery voltage by 100
-    float batteryVoltage = static_cast<float>(voltageValue) / 100.0;
+    float batteryVoltage = static_cast<float>(voltageValue) * 0.01;
 
     // Convert battery voltage to percentage
     float batteryPercentage = convertVoltageToPercentage(batteryVoltage, 3.3);
